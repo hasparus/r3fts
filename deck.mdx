@@ -153,14 +153,12 @@ if (__DEV__ || global.RN$Bridgeless) {
 }
 
 ```
-https://github.com/facebook/react-native/blob/master/Libraries/Components/View/ViewNativeComponent.js#L56-L70
 
+[react-native/Libraries/Components/View/ViewNativeComponent.js#L56-L70](https://github.com/facebook/react-native/blob/master/Libraries/Components/View/ViewNativeComponent.js#L56-L70)
 
+---
 
 React Native lies about the types of builtin components.
-
-https://twitter.com/sebmarkbage/status/1163163302295289856
-https://github.com/facebook/react-native/blob/master/Libraries/Components/View/ViewNativeComponent.js#L64-L70
 
 ---
 
@@ -194,16 +192,21 @@ Easy, huh?
 
 ---
 
-Not easy.
+#### Not easy.
 
+<div style={{ maxWidth: 800 }}>
 <Steps>
 
 - We have multiple types of "components" (`Object3DNode`, `BufferGeometryNode`)
   depending on the class hierarchy in THREE
 - We can't check the inheritance, because THREE is ES5 codebase with "constructor composition"
-  instead of prototypal inheritance. 
+  instead of prototypal inheritance.
+  ```ts
+  function B() { A(this); }
+  ```
 
 </Steps>
+</div>
 
 ---
 
