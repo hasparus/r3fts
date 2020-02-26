@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "alias": "r3f-ts.now.sh",
+  "alias": "r3fts.now.sh",
   "builds": [{ "src": "dist/**/*", "use": "@now/static" }],
   "routes": [
     { "src": "/\\d/?", "dest": "/dist/" },

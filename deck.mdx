@@ -67,6 +67,10 @@ Reconcilers translate React's declarative API into underlying platfrom operation
 
 ---
 
+## `"mesh" --> THREE.Mesh`
+
+---
+
 # The Problem
 
 <Steps>
@@ -85,7 +89,17 @@ Reconcilers translate React's declarative API into underlying platfrom operation
 
 ---
 
-# The Problem
+
+react-three-fiber was a React library written in TypeScript which conflicted
+with @types/react
+
+I'm not turning `skipLibCheck` on. [I had to act](https://github.com/react-spring/react-three-fiber/pull/233). 
+
+---
+
+# Conflict with @types/react
+
+---
 
 ### How are the elements mapped into ThreeJS objects?
 
@@ -105,11 +119,7 @@ function createInstance( // simplified
 }
 ```
 
-Full implementation in [react-three-fiber/master/src/reconciler.tsx#L191-L235](https://github.com/react-spring/react-three-fiber/blob/master/src/reconciler.tsx#L191-L235)
-
----
-
-## `"mesh" --> THREE.Mesh`
+full implementation in [react-three-fiber/master/src/reconciler.tsx#L191-L235](https://github.com/react-spring/react-three-fiber/blob/master/src/reconciler.tsx#L191-L235)
 
 ---
 
@@ -117,7 +127,37 @@ Full implementation in [react-three-fiber/master/src/reconciler.tsx#L191-L235](h
 
 ---
 
-React Native lies about the types. This is the recommended solution.
+import liePng from "./assets/lie.png";
+
+<Box>
+  <img src={liePng} />
+</Box>
+
+---
+
+```js
+if (__DEV__ || global.RN$Bridgeless) {
+  // On Android, View extends the base component with additional view-only props
+  // On iOS, the base component is View
+  if (Platform.OS === 'android') {
+    viewConfig = ReactNativeViewViewConfigAndroid;
+    registerGeneratedViewConfig('RCTView', ReactNativeViewViewConfigAndroid);
+  } else {
+    viewConfig = {};
+    registerGeneratedViewConfig('RCTView', {uiViewClassName: 'RCTView'});
+  }
+
+  NativeViewComponent = 'RCTView';
+} else {
+  NativeViewComponent = requireNativeComponent('RCTView');
+}
+
+```
+https://github.com/facebook/react-native/blob/master/Libraries/Components/View/ViewNativeComponent.js#L56-L70
+
+
+
+React Native lies about the types of builtin components.
 
 https://twitter.com/sebmarkbage/status/1163163302295289856
 https://github.com/facebook/react-native/blob/master/Libraries/Components/View/ViewNativeComponent.js#L64-L70
@@ -156,10 +196,22 @@ Easy, huh?
 
 Not easy.
 
-- We have multiple types of elements (`Object3DNode`, `BufferGeometryNode`, 
+<Steps>
 
+- We have multiple types of "components" (`Object3DNode`, `BufferGeometryNode`)
+  depending on the class hierarchy in THREE
+- We can't check the inheritance, because THREE is ES5 codebase with "constructor composition"
+  instead of prototypal inheritance. 
+
+</Steps>
 
 ---
+
+The Solution
+
+---
+
+
 <!-- thanks -->
 
 # [Thank You!](https://sbf2i.csb.app/)

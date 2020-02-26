@@ -14,9 +14,9 @@ export const theme = {
     text: "#000",
     background: "#fff",
     primary: "blue",
-    secondary: "#000",
-    accent: "#000",
-    gray: "#666"
+    secondary: "#111",
+    accent: "black",
+    gray: "#aaaaaf"
   },
   styles: {
     code: {
@@ -43,5 +43,3 @@ export const theme = {
     code: Prism
   }
 };
-
-console.log({ theme });
