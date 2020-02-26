@@ -19,8 +19,9 @@ export const theme = {
     gray: "#666"
   },
   styles: {
-    pre: { lineHeight: 1 },
-    code: prism,
+    code: {
+      ...prism
+    },
     a: {
       color: "unset",
       textDecorationColor: "rgba(0, 50, 255, 0.18)"

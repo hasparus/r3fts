@@ -109,11 +109,55 @@ Full implementation in [react-three-fiber/master/src/reconciler.tsx#L191-L235](h
 
 ---
 
-# The Problem
+## `"mesh" --> THREE.Mesh`
 
+---
+
+# How to type this?
+
+---
+
+React Native lies about the types. This is the recommended solution.
+
+https://twitter.com/sebmarkbage/status/1163163302295289856
+https://github.com/facebook/react-native/blob/master/Libraries/Components/View/ViewNativeComponent.js#L64-L70
+
+---
+
+# Initial idea
+
+```ts
+const t = {
+  line: ('line' as any) as ((
+    _: ReactThreeFiber.Object3DNode<THREE.Line, typeof THREE.Line>
+  ) => JSX.Element),
+};
+
+function Thing({ vertices }) {
+  return (
+      <t.line
+        onPointerDown={e => console.log(e)}
+        onUpdate={line => console.log(line)}
+      >
+        <geometry
+          attach="geometry"
+          vertices={vertices.map(v => new THREE.Vector3(...v))}
+          onUpdate={self => (self.verticesNeedUpdate = true)}
+        />
+        <lineBasicMaterial attach="material" color="black" />
+      </t.line>
+  );
+}
 ```
-"mesh" -> THREE.Mesh
-```
+
+Easy, huh?
+
+---
+
+Not easy.
+
+- We have multiple types of elements (`Object3DNode`, `BufferGeometryNode`, 
+
 
 ---
 <!-- thanks -->
