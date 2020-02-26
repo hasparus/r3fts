@@ -1,0 +1,122 @@
+import { Global, css, jsx } from "@emotion/core";
+import { Head, Notes, Steps, themes } from "mdx-deck";
+import { Text, Link, Box } from "@theme-ui/components";
+
+import { theme as th } from './theme';
+
+export const theme = th;
+
+<Head>
+  <title>react-three-fiber 💕 TS</title>
+  <link
+    href="https://fonts.googleapis.com/css?family=Work+Sans:400,700&display=swap"
+    rel="stylesheet"
+  />
+</Head>
+
+### Wrocław TypeScript Meetup February 2020
+
+# Contributing TS to react-three-fiber
+
+<Box pt={5} />
+
+<Text>
+  <Link
+    href="https://twitter.com/hasparus"
+    style={{ color: "inherit" }}
+  >
+    @hasparus
+  </Link>
+  {" "}&middot;{" "}
+  <Link href="https://haspar.us" style={{ color: "inherit" }}>
+    https://haspar.us
+  </Link>
+</Text>
+
+<Box pt={5} />
+
+---
+
+
+# What is react-three-fiber?
+
+React [reconciler](https://github.com/facebook/react/tree/master/packages/react-reconciler)
+for ThreeJS on the web and react-native
+  
+<Steps>
+
+- Created by [Paul Henschel](https://twitter.com/0xca0a), the author of [react-spring](https://www.react-spring.io/)
+- Build stuff like [this game](https://i2160.csb.app/)
+- With code like [this](https://codesandbox.io/embed/r3f-game-i2160?fontsize=14&hidenavigation=1&theme=dark&view=editor)
+
+</Steps>
+
+---
+
+# Why do I care about it?
+
+[whiteboard.explaineverything.com](https://whiteboard.explaineverything.com/)
+
+---
+
+# How it works?
+
+Reconcilers translate React's declarative API into underlying platfrom operations.
+
+`react-dom`, `react-native`, `react-three-fiber`, `react-zdog`
+
+---
+
+# The Problem
+
+<Steps>
+
+1. We're using both `react-dom` and `react-three-fiber` in an app (obviously).
+2. Both use string instrinsic elements `<div />` `<mesh />`
+3. JSX.IntrinsicElements types are global
+4. 💥 Subsequent property declarations must have the same type. ts(2717)
+
+</Steps>
+
+---
+
+
+![(property) JSX.IntrinsicElements.line: React.SVGProps<SVGLineElement> Subsequent property declarations must have the same type. Property 'line' must be of type 'SVGProps<SVGLineElement>', but here has type 'Object3DNode<Line, typeof Line>'. ts(2717)](https://user-images.githubusercontent.com/15332326/63222606-96cb0780-c1aa-11e9-98d5-591572090dee.png)
+
+---
+
+# The Problem
+
+### How are the elements mapped into ThreeJS objects?
+
+```ts
+function createInstance( // simplified
+  type: string,
+  { args = [], ...props },
+  container: THREE.Object3D,
+  hostContext: any,
+  internalInstanceHandle: Reconciler.Fiber
+) {
+  let name = `${type[0].toUpperCase()}${type.slice(1)}`
+  
+  const target = (catalogue as any)[name] || (THREE as any)[name]
+  
+  return is.arr(args) ? new target(...args) : new target(args)
+}
+```
+
+Full implementation in [react-three-fiber/master/src/reconciler.tsx#L191-L235](https://github.com/react-spring/react-three-fiber/blob/master/src/reconciler.tsx#L191-L235)
+
+---
+
+# The Problem
+
+```
+"mesh" -> THREE.Mesh
+```
+
+---
+<!-- thanks -->
+
+# [Thank You!](https://sbf2i.csb.app/)
+
