@@ -48,8 +48,6 @@ yarn start
 **Comments**:
 
 I have actually removed 1/3 of the talk ([initial idea gist](https://gist.github.com/hasparus/bcd582d93d5892f54a18607fe54afb4b/edit)) on the same day I gave it.
-It was a good idea, the talk took the time it was meant to.
+It was a good idea. The talk took the time it was meant to.
 
-I got some feedback and I think it resonated pretty well.
-I might polish it and try to fit more story and more knowledge in a bit longer time window.
-I think I'll leave rollup plugin story for another talk though, to keep this more focused on React and TS Compiler API.
+I got some feedback and I think it resonated pretty well. However, after watching the video I'm a bit unhappy with the delivery. The deck could also be improved. I might polish it and try to fit more story and more knowledge in a bit longer time window. I think I'll leave rollup plugin story for another talk though, to keep this more focused on React and TS Compiler API.
