@@ -19,6 +19,9 @@ yarn start
 - How will you deliver the idea to the audience?
   - R3F is pretty rad. Gonna show [this](https://i2160.csb.app/) on the first slide.
 
+    _Started with the tease, went ahead to explain the problem and continued with the solution.\
+     Why -> What -> How. Got good feedback on the flow._
+
 - What is the one thing that you want people to take away from your talk?
   - Compiler API is __powerful__. We can use this power to hard solve problems.
 
@@ -47,6 +50,6 @@ yarn start
 I have actually removed 1/3 of the talk ([initial idea gist](https://gist.github.com/hasparus/bcd582d93d5892f54a18607fe54afb4b/edit)) on the same day I gave it.
 It was a good idea, the talk took the time it was meant to.
 
-I got really good feedback.
+I got some feedback and I think it resonated pretty well.
 I might polish it and try to fit more story and more knowledge in a bit longer time window.
 I think I'll leave rollup plugin story for another talk though, to keep this more focused on React and TS Compiler API.
