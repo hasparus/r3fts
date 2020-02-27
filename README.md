@@ -42,7 +42,7 @@ yarn start
   - why was it hard in TS
     - static clashes with dynamic
   - How React Native lies about its types
-  - Why waabouts traversing the API in JS harder (impossible?)
+  - Why was traversing the API in JS harder (impossible?)
   - show the code
 
 **Comments**:
