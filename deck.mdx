@@ -136,25 +136,23 @@ import liePng from "./assets/lie.png";
 ---
 
 ```js
+import type {ViewProps} from './ViewPropTypes';
+import type {HostComponent} from '../../Renderer/shims/ReactNativeTypes';
+
+export type ViewNativeComponentType = HostComponent<ViewProps>;
+
 if (__DEV__ || global.RN$Bridgeless) {
-  // On Android, View extends the base component with additional view-only props
-  // On iOS, the base component is View
-  if (Platform.OS === 'android') {
-    viewConfig = ReactNativeViewViewConfigAndroid;
-    registerGeneratedViewConfig('RCTView', ReactNativeViewViewConfigAndroid);
-  } else {
-    viewConfig = {};
-    registerGeneratedViewConfig('RCTView', {uiViewClassName: 'RCTView'});
-  }
+  if (Platform.OS === 'android') { /* ... */ } else { /* ... */ }
 
   NativeViewComponent = 'RCTView';
 } else {
   NativeViewComponent = requireNativeComponent('RCTView');
 }
 
+export default ((NativeViewComponent: any): ViewNativeComponentType);
 ```
 
-[react-native/Libraries/Components/View/ViewNativeComponent.js#L56-L70](https://github.com/facebook/react-native/blob/master/Libraries/Components/View/ViewNativeComponent.js#L56-L70)
+[react-native/Libraries/Components/View/ViewNativeComponent.js](https://github.com/facebook/react-native/blob/bc210c03be495966359fb960f1e07e19b0d55590/Libraries/Components/View/ViewNativeComponent.js)
 
 ---
 
