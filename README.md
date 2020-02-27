@@ -12,8 +12,6 @@ yarn start
 
 ### Notes
 
-**Title**: Case Study: Helping with TypeScript problems of `react-three-fiber`.
-
 **Dan Questions**:
 
 - How will you deliver the idea to the audience?
